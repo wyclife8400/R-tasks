@@ -1,0 +1,43 @@
+---
+title: ''
+output: html_document
+date: '2022-11-05'
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+rm(list=ls())
+setwd("C:/Users/BWOGA/Desktop/Snow")
+library(haven)
+library(tidyverse)
+library(summarytools)
+```
+
+```{r}
+data=read_dta("SNF fully merged (english version, with Treatment variable) (1).dta")
+head(data)
+unique(data$orgform)
+```
+
+```{r}
+data%>%group_by(year)%>%summarize(mean_of_employees=mean(employees),mean_revenue=mean(revenue),mean_b_memb=mean(b_memb),femb_mean=mean(femb_memb),mean_gender_ratio=mean(gender_ratio))
+```
+
+```{r}
+data%>%group_by(year,orgform)%>%summarise(mean_revenue=mean(revenue),mean_b_memb=mean(b_memb),sector=sum(sector))
+```
+
+```{r}
+# private limited companies
+AS=subset(data,orgform=="AS")
+head(AS)
+# public limited companies
+ASA=subset(data,orgform=="ASA")
+head(ASA)
+```
+
+```{r}
+AS
+```
+
+

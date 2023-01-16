@@ -1,0 +1,39 @@
+---
+title: "Alvarado_An_2015_Dataset"
+output:
+  pdf_document: default
+  html_document: default
+date: "2022-11-01"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+rm(list=ls())
+
+library(haven)
+library(tidyverse)
+```
+
+```{r}
+spss<-Alvarado_An_2015_Dataset
+
+head(spss)
+```
+```{r}
+head(spss)
+```
+
+```{r}
+print(paste0("The mean of X1TXMSCR with 200 sample size is ",mean(spss$X1TXMSCR)," With standard deviation ",
+sd(spss$X1TXMSCR)))
+```
+```{r}
+n=length(spss$X1TXMSCR)
+se=sd(spss$X1TXMSCR)/sqrt(n)
+z=1.196
+m=mean(spss$X1TXMSCR)
+print(paste0("the lower bound is ",m+(z*se)," the upper bound ",m-(z*se)))
+```
+```{r}
+t.test(spss$X1TXMSCR,mu =39,alternative ="less",conf.level =0.95)
+```

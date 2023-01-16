@@ -1,0 +1,200 @@
+---
+title: "Problem Set #6"
+author: "INSERT YOUR NAME HERE"
+date: "insert date here"
+urlcolor: blue
+output: 
+  pdf_document: default
+---
+
+
+# Overview:  
+
+In this problem set, you will be using the **stringr** package (part of tidyverse) to work with strings, and the **lubridate** package for working with dates and times. We will ask you to load Twitter data that is saved as an .Rdata file.  
+
+You will no longer be required to post GitHub issues, but we continue to encourage you all to utilize issues as a way to ask questions and share what you've learned with your peers.
+
+
+# Question 1: Working with strings
+
+
+1. Load the following packages in the code chunk below: `tidyverse` and `lubridate`.
+
+```{r, message=F}
+
+```
+
+
+2. Using `str_c()` and the following objects as input, create the string: `"Roses are red, Violets are blue"`  
+
+    - We encourage you to first sketch out what you want to do on some scratch paper.
+    - Recall from the lecture example on "Using str_c() on vectors of different lengths", when multiple vectors of different length are provided in the str_c() function, the elements of shorter vectors are recycled. See below.
+    
+```{r eval=FALSE}
+str_c("@", c("ozanj ", "lizachavac ", "briannawright135 "), sep = "", collapse = ",")
+
+#[1] "@ozanj ,@lizachavac ,@briannawright135 "
+```
+    
+    - Now try it yourself.
+```{r}
+vec_1 <- c("Roses", "Violets")
+vec_2 <- c("red", "blue")
+
+str_1 <- "are"
+
+# Write your code here
+
+```
+
+
+3. [Pig Latin](https://en.wikipedia.org/wiki/Pig_Latin) is a language game in which the first consonant of each word is moved to the end of the word, then `"ay"` is appended to create a suffix. For example, the word `"Wikipedia"` would become `"Ikipediaway"`.
+
+    - Using `str_c()` and `str_sub()`, turn the given `pig_latin` vector into the string: `"igpay atinlay"`
+    - We encourage you to first sketch out what you want to do on some scratch paper.
+        - First, think about what the final outcome will look like.
+        - Then, think about how you can get there. Play around with the `str_sub()` function. What happens when you include different values in the `str_sub()` function?  
+    - this is low-key the trickiest question in the problem set. So if you get stuck, ask a question to your group or github and move on. and come back to it later.
+
+```{r}
+pig_latin <- c('pig', 'latin')
+
+# Write your code here
+```
+
+
+4. Using `str_c()` and `str_sub()`, decode the given `secret_message`. Your output should be a string.  
+
+    - Follow the same logic from above.
+    - Sketch out what you want to do on some scratch paper. Break it down step by step. Play around with different values for the `str_sub()` function. 
+    
+```{r}
+secret_message <- c('ollowfay', 'ouryay', 'earthay')
+
+# Write your code here
+
+```
+
+
+# Question 2: Working with Twitter data  
+
+
+1. You will be using Twitter data we fetched from the following Twitter handles: `UniNoticias`, `FoxNews`, and `CNN`.  
+
+    - This data has been saved as an Rdata file.
+    - Use the `load()` and `url()` functions to download the `news_df` dataframe from the url: `https://github.com/anyone-can-cook/rclass1/raw/master/data/twitter/twitter_news.RData`
+    - Report the dimensions of the `news_df` data frame (rows and columns). Use the `dim()` function.  
+
+
+```{r}
+
+```
+
+
+2. Subset your dataframe `news_df` and create a new dataframe called `news_df2` keeping only the following variables: `user_id`, `status_id`, `created_at`, `screen_name`, `text`, `followers_count`, `profile_expanded_url`.  
+
+    - Note in the following questions we will ask you to create a new column and that means you have to assign `<-` the new changes you are making to the existing dataframe `news_df2`. Ex. `news_df2 <- news_df %>% mutate(newvar = mean(oldvar))`
+
+```{r}
+
+```
+
+
+3. Create a new column in `news_df2` called `text_len` that contains the length of the character variable `text`.
+
+    - What is the `class` and `type` of this new column? Make sure to include your code in the code chunk below.
+      - __ANSWER__: 
+    
+```{r}
+
+```
+
+
+4. Create an additional column in `news_df2` called `handle_followers` that stores the twitter handle and the number of followers associated with that twitter handle in a string. For example, the entries in the `handle_followers` column should look like this: `@[twitter_handle] has [number] followers.`
+
+    - What is the `class` and `type` of this new column? Make sure to include your code in the code chunk below.
+      - __ANSWER__: 
+
+```{r}
+
+```
+
+
+5. Lastly, create a column in `news_df2` called `short_web` that contains a short version of the `profile_expanded_url` without the `http://www.` part of the url. For example, the entries in that column should look something like this: `nytimes.com`.
+
+```{r}
+
+```
+
+# Question 3: Working with dates/times
+
+
+1. Using the column `created_at`, create a new column in `news_df2` called `dt_chr` that is a character version of `created_at`.
+
+    - What is the `class` of the `created_at` and `dt_chr` columns? Make sure to include your code in the code chunk below.
+      - __ANSWER__: 
+
+```{r}
+
+```
+
+
+2. Create another column in `news_df2` called `dt_len` that stores the length of `dt_chr`.
+
+```{r}
+
+```
+
+
+3. Next, create additional columns in `news_df2` for each of the following date/time components:
+
+    a. Create a new column `date_chr` for date (e.g. `2020-03-26`) using the column `dt_chr` and the `str_sub()` function.
+    a. Do the same for year `yr_chr` (e.g. `2020`).
+    a. Do the same for month `mth_chr` (e.g. `03`).
+    a. Do the same for day `day_chr` (e.g. `26`).
+    a. Do the same for time `time_chr` (e.g. `22:41:09`).  
+
+```{r}
+
+```
+
+
+4. Using the column we created in the previous question `time_chr`, create additional columns in `news_df2` for the following time components: 
+
+    a. Create a new column `hr_chr` for hour (e.g. `22`) using the column `time_chr` and the `str_sub()` function.
+    a. Do the same for minutes `min_chr` (e.g. `41`).
+    a. Do the same for seconds `sec_chr` (e.g. `09`).
+
+```{r}
+
+```
+
+
+
+5. Now let's get some practice with the `lubridate` package.  
+
+    a. Using the `year()` function from the `lubridate` package, create a new column in `news_df2` called `yr_num` that contains the year (e.g. `2020`) extracted from `date_chr`.
+    a. Do the same for month `mth_num`.
+    a. Do the same for day `day_num`.
+    a. Do the same for hour `hr_num`, but extract from `created_at` column instead of `date_chr`.
+    a. Do the same for minutes `min_num`. 
+    a. Do the same for seconds `sec_num`.
+
+```{r}
+
+```
+
+
+
+6. Using the **new numeric columns** (e.g. day_num, mth_num) you've created in the previous step, reconstruct the date and datetime columns. Namely, add the following columns to `news_df2`:
+
+    a. Use `make_date()` to create new column called `my_date` that contains the date (year, month, day).
+    a. Use `make_datetime()` to create new column called `my_datetime` that contains the datetime (year, month, day, hour, minutes, seconds).
+    
+    - What is the `class` of your `my_date` and `my_datetime` columns? Make sure to include your code in the code chunk below.
+      - __ANSWER__: 
+
+```{r}
+
+```
+
